@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutternews/components/news_item.dart';
+import 'package:flutternews/components/news_item_web.dart';
 import 'package:flutternews/models/articlesHolder.dart';
 import 'package:flutternews/services/api.dart';
 import 'package:provider/provider.dart';
@@ -51,25 +52,34 @@ class _NewsState extends State<News> with TickerProviderStateMixin {
                       onRefresh: () => _refresh(context),
                       child:
                       Consumer<ArticlesHolder>(builder: (context, news, child) {
-                        return ListView.builder(
+                        return ListView.separated(
+                            separatorBuilder: (context, index) => Divider(
+                              color: Colors.black,
+                            ),
+                            padding: EdgeInsets.only(top: 10,bottom: 10),
                             itemCount: news.articles.length,
-                            itemBuilder: (context, position) =>
-                                Text(
-                                  news.articles[position].title,
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .headline1,
-                                ));
-                      }))),
+                            itemBuilder: (context, position) => ListTile(
+                              title: Text(news.articles[position].title,
+                                  style: Theme.of(context).textTheme.headline1),
+                              subtitle: Text(news.articles[position].author != null ? news.articles[position].author : "Autore non riconosciuto",
+                                  style: Theme.of(context).textTheme.subtitle2),
+                              onTap: () => NewsItemWeb(news.articles[position].url),
+                            )
+//                        Text(news.articles[position].title,
+//                              style: Theme.of(context).textTheme.headline1)
+                        );
+                      }
+                      )
+                  )
+              ),
               Center(
                   child: RefreshIndicator(
                       onRefresh: () => _refresh(context),
                       child: Consumer<ArticlesHolder>(
                           builder: (context, holder, child) {
                             return ListView.builder(
-                                itemCount: holder.getArticles("business") == null ? 0 : holder.getArticles("business").length,
-                                itemBuilder: (context, position) => NewsItem(holder.getArticles("business")[position]));
+                                itemCount: holder.getArticles("general") == null ? 0 : holder.getArticles("general").length,
+                                itemBuilder: (context, position) => NewsItem(holder.getArticles("general")[position]));
                           }
                           )
                   )

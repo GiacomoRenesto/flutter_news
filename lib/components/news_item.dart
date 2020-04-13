@@ -14,7 +14,7 @@ class NewsItem extends StatelessWidget{
       child: Column(
         children: <Widget>[
           Card(
-            child:Image.network(article.urlToImage),
+            child:Image.network(article.urlToImage != null ? article.urlToImage : "https://via.placeholder.com/150"),
           ),
           Text(article.title),
           Text(article.author),
