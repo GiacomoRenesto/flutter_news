@@ -8,7 +8,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class NewsItemWeb extends StatelessWidget{
 
   final Article article;
-  final Completer <WebViewController> _controller = Completer <WebViewController>();
+  final _key = UniqueKey();
 
   var url;
 
@@ -18,20 +18,36 @@ class NewsItemWeb extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: url != null ? url : 'https://flutter.dev',
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) {
-        _controller.complete(webViewController);
-      },
-      onPageStarted: (String url) {
-        print('Page started loading: $url');
-      },
-      onPageFinished: (String url) {
-        print('Page finished loading: $url');
-      },
-      gestureNavigationEnabled: true,
+    return Column(
+      children: [
+        Expanded(
+            child: WebView(
+              key: _key,
+              javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: article.url,
+            ))
+      ],
     );
   }
 
 }
+
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text("Detail"),
+//      ),
+//      body: WebView(
+//        initialUrl: url != null ? url : 'https://flutter.dev',
+//        javascriptMode: JavascriptMode.unrestricted,
+//        onWebViewCreated: (WebViewController webViewController) {
+//          _controller.complete(webViewController);
+//        },
+//        onPageStarted: (String url) {
+//          print('Page started loading: $url');
+//        },
+//        onPageFinished: (String url) {
+//          print('Page finished loading: $url');
+//        },
+//        gestureNavigationEnabled: true,
+//      ),
+//    );

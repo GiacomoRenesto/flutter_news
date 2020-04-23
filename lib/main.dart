@@ -1,6 +1,7 @@
 import 'package:flutternews/models/articlesHolder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutternews/screens/news.dart';
+import 'package:flutternews/screens/news_web_detail.dart';
 import 'package:flutternews/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +16,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ArticlesHolder(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'News App',
         initialRoute: '/',
         theme: appTheme,
         routes: {
           '/': (context) => News(),
-//          '/news': (context) => MyNews(),
+          '/news_web_detail': (context) => NewsWebDetail(),
 //          '/my_news': (context) => Search(),
         },
       ),

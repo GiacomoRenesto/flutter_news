@@ -15,6 +15,12 @@ class ArticlesHolder extends ChangeNotifier{
   final List<Article> _articles = [];
   final Map<String, List<Article>> _articlesMap = Map();
 
+  Article selectedArticle;
+
+  Article get getSelectedArticle => selectedArticle;
+
+  set setSelectedArticle(Article article){ selectedArticle = article;}
+
   set articles(List<Article> news){
     _articles.clear();
     _articles.addAll(news);

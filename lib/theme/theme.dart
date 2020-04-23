@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
-    primarySwatch: Colors.teal,
+  appBarTheme: AppBarTheme(color: Colors.white),
+    primarySwatch: Colors.blueGrey,
     textTheme: TextTheme(
       display4: TextStyle(
-        fontFamily: 'Varela',
+        fontFamily: 'Raleway',
         fontWeight: FontWeight.w700,
         fontSize: 24,
         color: Colors.black,

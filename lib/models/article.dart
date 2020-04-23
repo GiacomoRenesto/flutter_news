@@ -23,7 +23,7 @@ class Article{
       url: json["url"] as String,
       urlToImage: json["urlToImage"] as String,
       publishedAt: json["publishedAt"] as String,
-      source: json["name"] as String,
+      source: json["source"]["name"] as String,
     );
   }
 }
