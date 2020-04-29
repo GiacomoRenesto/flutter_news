@@ -1,5 +1,6 @@
 import 'package:flutternews/models/articlesHolder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutternews/screens/SplashScreen.dart';
 import 'package:flutternews/screens/news.dart';
 import 'package:flutternews/screens/news_web_detail.dart';
 import 'package:flutternews/theme/theme.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         theme: appTheme,
         routes: {
-          '/': (context) => News(),
+          '/': (context) => SplashScreen(),
+          '/news': (context) => News(),
           '/news_web_detail': (context) => NewsWebDetail(),
 //          '/my_news': (context) => Search(),
         },

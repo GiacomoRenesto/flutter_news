@@ -9,7 +9,7 @@ class ArticlesHolder extends ChangeNotifier{
 
   ArticlesHolder(){
     Api api = new Api();
-    api.getArticles().then((value) => articles=value);
+    api.getHeadlines().then((value) => articles=value);
   }
 
   final List<Article> _articles = [];

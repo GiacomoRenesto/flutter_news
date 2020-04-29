@@ -32,22 +32,3 @@ class NewsItemWeb extends StatelessWidget{
 
 }
 
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text("Detail"),
-//      ),
-//      body: WebView(
-//        initialUrl: url != null ? url : 'https://flutter.dev',
-//        javascriptMode: JavascriptMode.unrestricted,
-//        onWebViewCreated: (WebViewController webViewController) {
-//          _controller.complete(webViewController);
-//        },
-//        onPageStarted: (String url) {
-//          print('Page started loading: $url');
-//        },
-//        onPageFinished: (String url) {
-//          print('Page finished loading: $url');
-//        },
-//        gestureNavigationEnabled: true,
-//      ),
-//    );

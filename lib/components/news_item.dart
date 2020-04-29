@@ -16,11 +16,14 @@ class NewsItem extends StatelessWidget{
           Provider.of<ArticlesHolder>(context, listen: false).setSelectedArticle = article;
           Navigator.pushNamed(context, '/news_web_detail');
         },
-        child: Card(
           child: Stack(
             alignment: Alignment.bottomLeft,
             children: <Widget>[
               Card(
+                elevation: 2,
+                  shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   child: ClipRRect(
                     child:Image.network(
                       article.urlToImage != null ? article.urlToImage : "https://via.placeholder.com/250",
@@ -35,7 +38,29 @@ class NewsItem extends StatelessWidget{
                   child: ListTile(
 //                                  leading: Text(news.articles[position].source + " " + news.articles[position].publishedAt),
                     title: Text(article.title,
-                        style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow( // bottomLeft
+                                  offset: Offset(-1.5, -1.5),
+                                  color: Colors.black12
+                              ),
+                              Shadow( // bottomRight
+                                  offset: Offset(1.5, -1.5),
+                                  color: Colors.black12
+                              ),
+                              Shadow( // topRight
+                                  offset: Offset(1.5, 1.5),
+                                  color: Colors.black12
+                              ),
+                              Shadow( // topLeft
+                                  offset: Offset(-1.5, 1.5),
+                                  color: Colors.black12
+                              ),
+                            ]
+                        )
                     ),
                     subtitle: Text(article.source != null ? article.source : "Autore non riconosciuto",
                         style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.bold)
@@ -44,7 +69,6 @@ class NewsItem extends StatelessWidget{
               )
             ],
           ),
-        )
     );
   }
 

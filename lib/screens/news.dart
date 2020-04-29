@@ -54,7 +54,16 @@ class _NewsState extends State<News> with TickerProviderStateMixin {
             )),
         body: Container(
             child: TabBarView(controller: _tabController, children: <Widget>[
-              getTabItem(GENERAL),
+              Center(
+                child: RefreshIndicator(
+                  onRefresh: () => _refresh(context, null),
+                  child: Consumer<ArticlesHolder>(builder: (context, holder, child) {
+                    return ListView.builder(
+                      itemCount: holder.articles.length == null ? 0 : holder.articles.length,
+                      itemBuilder: (context, position) =>
+                      NewsItem(holder.articles[position]));
+              })
+            )),
               getTabItem(SPORT),
               getTabItem(TECHNOLOGY),
               getTabItem(SCIENCE)
@@ -81,43 +90,8 @@ class _NewsState extends State<News> with TickerProviderStateMixin {
             child: Consumer<ArticlesHolder>(builder: (context, news, child) {
               return ListView.builder(
                   padding: EdgeInsets.only(top: 10,bottom: 10),
-                  itemCount: news.articles.length,
-                  itemBuilder: (context,position) => NewsItem(news.articles[position]),
-//                  itemBuilder: (context, position) => GestureDetector(
-//                      onTap: () {
-//                        Provider.of<ArticlesHolder>(context, listen: false).setSelectedArticle = news.articles[position];
-//                        Navigator.pushNamed(context, '/news_web_detail');
-//                      },
-//                      child: Card(
-//                        child: Stack(
-//                          alignment: Alignment.bottomLeft,
-//                          children: <Widget>[
-//                            Card(
-//                                child: ClipRRect(
-//                                  child:Image.network(
-//                                    news.articles[position].urlToImage != null ? news.articles[position].urlToImage : "https://via.placeholder.com/250",
-//                                    fit: BoxFit.cover,
-//                                  ),
-//                                  borderRadius: BorderRadius.circular(12.0),
-//                                )
-//                            ),
-//                            Container(
-//                                color: Colors.transparent,
-//                                padding: const EdgeInsets.all(8.0),
-//                                child: ListTile(
-////                                  leading: Text(news.articles[position].source + " " + news.articles[position].publishedAt),
-//                                  title: Text(news.articles[position].title,
-//                                    style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)
-//                                  ),
-//                                  subtitle: Text(news.articles[position].source != null ? news.articles[position].source : "Autore non riconosciuto",
-//                                    style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.bold)
-//                                  ),
-//                                )
-//                            )
-//                          ],
-//                        ),
-//                      )
-//                  )
+                  itemCount: news.getArticles(category) == null ? 0 : news.getArticles(category).length,
+                  itemBuilder: (context,position) => NewsItem(news.getArticles(category)[position]),
               );
             }
             )
@@ -127,16 +101,16 @@ class _NewsState extends State<News> with TickerProviderStateMixin {
 
 
   Future<bool> _refresh(BuildContext context, String category) async {
-    await Api().getArticles(category: category);
+    await Api().getArticles( context: context,category: category);
     return true;
   }
 
   void _handleTabSelection() async {
     if (_tabController.index == 1)
-      await Api().getArticles( category: SPORT);
+      await Api().getArticles(context: context, category: SPORT);
     if (_tabController.index == 2)
-      await Api().getArticles( category: TECHNOLOGY);
+      await Api().getArticles(context: context, category: TECHNOLOGY);
     if (_tabController.index == 3)
-      await Api().getArticles( category: SCIENCE);
+      await Api().getArticles(context: context, category: SCIENCE);
   }
 }
